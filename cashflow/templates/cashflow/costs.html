@@ -226,12 +226,18 @@
                     {% for cost in costs %}
                     <div id="cost-{{ cost.id }}" class='w-[100%] '>
                       <li class='px-3 flex items-center justify-between my-4 bg-[#434037] w-[100%] text-white text-[12px]'>
-                      <div class='py-5 px-1 '>{{ cost.amount }}</div>
-                      {% comment %} <div class='py-5 px-1 '>{{ cost.cate_choices }}</div> {% endcomment %}
-                      <div class='py-5 px-1 '>{{ cost.get_type_display }}</div>
-                      <div class='py-5 px-1 '>{{ cost.persian_date }}</div>
+                      <div
+                      class="icon material-symbols-outlined {% if cost.type == 'income' %} text-[#ffed32] {% else %}text-[#3c6c6f]{% endif %} mx-1">
+                     
+                      {% if cost.type == 'income' %} 
+                        trending_up 
+                      {% else %}
+                        trending_down 
+                      {% endif %} </div>
+                      
+                      
                       <div class='py-5 px-1'>{{ cost.description }}</div>
-                   
+                      
                       <form method="POST" action="{% url 'costs' child.id %}" class='w-0'>
                         {% csrf_token %}
                         <button type="submit" class="text-[#fca311]" name="delete_cost_id" value="{{ cost.id }}">
@@ -408,17 +414,14 @@
       const categoryField = document.querySelector('#id_cate_choices');
 
       const expenseCategories = [
-          { value: 'food', text: 'خوراکی' },
           { value: 'needs', text: 'موارد ضروری' },
-          { value: 'education', text: 'آموزش' },
-          { value: 'health_cosmetics', text: 'مواد بهداشتی و آرایشی' },
-          { value: 'clothes', text: 'لباس' },
+          { value: 'wants', text: 'خواسته ها' },
           { value: 'else', text: 'سایر' }
       ];
 
       const incomeCategories = [
           { value: 'parent', text: 'والدین' },
-          { value: 'part_time_job', text: 'کار نیمه‌وقت' },
+          { value: 'part_time_job', text: 'کار پاره وقت' },
           { value: 'other', text: 'دیگر' }
       ];
 

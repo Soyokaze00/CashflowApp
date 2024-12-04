@@ -65,11 +65,8 @@ class Cost(models.Model):
         ('income', 'درآمد')
     ]
     EXPENSE_CATEGORIES = [
-        ('food', 'خوراکی'),
         ('needs', 'موارد ضروری'),
-        ('education', 'آموزش'),
-        ('health_cosmetics', 'مواد بهداشتی و آرایشی'),
-        ('clothes', 'لباس'),
+        ('wants', 'خواسته ها'), 
         ('else', 'سایر'),
         ('parent', 'والدین'),
         ('part_time_job', 'کار نیمه‌وقت'),
@@ -84,7 +81,7 @@ class Cost(models.Model):
     cate_choices=models.CharField(
         max_length=20,
         choices=EXPENSE_CATEGORIES,
-        default='food'
+        default='needs'
     )
 
     type = models.CharField(

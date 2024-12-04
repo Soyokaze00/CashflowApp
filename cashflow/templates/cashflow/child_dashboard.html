@@ -5,6 +5,8 @@
     <script src="https://cdn.jsdelivr.net/npm/ag-charts-community/dist/ag-charts.min.js"></script>
 
     <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Dashboard</title>
@@ -141,7 +143,7 @@
         </div>
         <div class="flex mt-4">
           <div
-            class="bg-[#353535] rounded-[30px] w-[30%] h-[85vh] ml-8 flex justify-center py-5 px-3"
+            class="bg-[#353535] rounded-[30px] w-[25%] h-[85vh] ml-3 flex justify-center py-5 px-3"
           >
             <div class="" dir="rtl">
               <h1 class="text-[25px] pt-3 pb-8 text-white text-center font-">
@@ -197,36 +199,85 @@
               </div>
             </div>
           </div>
-          <div class="flex-1 mr-5">
+          <div class="flex-1 mr-2" dir="rtl">
             <div class="flex justify-evenly mb-3">
-              <div class="w-[30%] md:w-[40%]">
-                <!-- <div id="chartContainer" style="height: 300px; width: 100%;border-radius: 30px;overflow: hidden;background-color: #212529;"></div> -->
-
-                <div
-                  class="bg-[#353535] rounded-[30px] overflow-hidden h-[30vh] md:h-[50vh]"
-                  id="myChart"
-                ></div>
+              <div
+                dir="rtl"
+                class="bg-[#ffffff] border-[3px] border-black mx-2 rounded-[30px] w-[35%] h-[50vh]"
+              >
+                <div class="title text-center mt-5">میانگین برآمد</div>
+                <div class="flex items-center justify-center">
+                  <div class="w-[100%]">
+                    <div
+                      class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                    >
+                      <div
+                        class="rounded-full bg-[#353535] w-[95%] flex justify-start items-center"
+                      >
+                        <div
+                          class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                        >
+                          روزانه
+                        </div>
+                        <p class="mr-[50px]">100t</p>
+                      </div>
+                    </div>
+                    <div
+                      class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                    >
+                      <div
+                        class="rounded-full bg-[#353535] w-[95%] flex justify-start items-center"
+                      >
+                        <div
+                          class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                        >
+                          هفتگی
+                        </div>
+                        <p class="mr-[50px]">100t</p>
+                      </div>
+                    </div>
+                    <div
+                      class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                    >
+                      <div
+                        class="rounded-full bg-[#353535] w-[95%] flex justify-start items-center"
+                      >
+                        <div
+                          class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                        >
+                          ماهیانه
+                        </div>
+                        <p class="mr-[50px]">100t</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="w-[30%] md:w-[32%] mx-2 flex items-center justify-center bg-[#353535] rounded-[30px]"
+              >
+                <canvas class=" " id="donutChart"></canvas>
               </div>
               <div
                 dir="rtl"
-                class="bg-[#353535] overflow-auto rounded-[30px] w-[40%] h-[50vh]"
+                class="bg-[#ffffff] border-[3px] border-black overflow-auto mx-2 rounded-[30px] w-[35%] h-[50vh]"
               >
                 <div>
                   <div class="flex items-center justify-center pt-5">
                     <span class="material-symbols-outlined text-Yellow">
                       receipt_long
                     </span>
-                    <h1 class="text-center text-white">تراکنش های اخیر</h1>
+                    <h1 class="text-center">تراکنش های اخیر</h1>
                   </div>
 
                   <ul class="px-5 py-3">
                     {% for cost in recent_costs %}
-                    <li class="flex justify-between my-4 text-white">
+                    <li class="flex justify-between my-4">
                       <div>{{ cost.get_cate_choices_display }}</div>
                       <div class="flex items-center">
                         <p>{{ cost.amount }}</p>
                         <div
-                          class="icon material-symbols-outlined {% if cost.type == 'income' %} text-[#ffed32] {% else %}text-[#3c6c6f]{% endif %} mx-1"
+                          class="icon material-symbols-outlined {% if cost.type == 'income' %} text-[#3c6c6f] {% else %}text-[#FFD100]{% endif %} mx-1"
                         >
                           {% if cost.type == 'income' %} trending_up {% else %}
                           trending_down {% endif %}
@@ -238,8 +289,7 @@
                       class="flex justify-center items-center text-center px-4"
                     >
                       <div>
-                        <span
-                          class="material-symbols-outlined text-[90px] text-white"
+                        <span class="material-symbols-outlined text-[90px]"
                           >wallet</span
                         >
                         <p class="text-white text-[20px] mt-3">
@@ -253,16 +303,54 @@
               </div>
             </div>
             <div
-              class="flex justify-center mt-2 bottom-0 h-[34vh] overflow-hidden"
+              class="flex justify-center my-2 bottom-0 h-[37%] overflow-hidden"
             >
               <div
-                class="bg-white rounded-[30px] w-[88%] flex justify-center items-center border-2 border-black"
+                class="bg-white rounded-[40px] w-[98.3%] flex justify-center items-center border-2 border-black"
               >
                 <div
-                  id="myChart4"
-                  class="h-[12rem] w-[60%] overflow-hidden"
-                ></div>
-                <!-- <div class="w-[30%]  p-3 my-8 h-[70%]"></div> -->
+                  class="Saves flex justify-between w-[100%] m-6 items-center"
+                >
+                  <div class="saveBox text-center">
+                    <div class="flex justify-center" dir="ltr">
+                      <span class="text-gray-400">1MT</span><span>/20MT</span>
+                    </div>
+                    <div>
+                      <p class="text-[#FFD100] text-[30px]">title</p>
+                    </div>
+                    <div
+                      class="chartSave flex items-center justify-center w-[100%]"
+                    >
+                      <canvas id="saveChart" class="w-[200px]"></canvas>
+                    </div>
+                  </div>
+                  <div class="saveBox text-center">
+                    <div class="flex justify-center" dir="ltr">
+                      <span class="text-gray-400">1MT</span><span>/20MT</span>
+                    </div>
+                    <div>
+                      <p class="text-[#FFD100] text-[30px]">title</p>
+                    </div>
+                    <div
+                      class="chartSave flex items-center justify-center w-[100%]"
+                    >
+                      <canvas id="saveChart2" class="w-[200px]"></canvas>
+                    </div>
+                  </div>
+                  <div class="saveBox text-center">
+                    <div class="flex justify-center" dir="ltr">
+                      <span class="text-gray-400">1MT</span><span>/20MT</span>
+                    </div>
+                    <div>
+                      <p class="text-[#FFD100] text-[30px]">title</p>
+                    </div>
+                    <div
+                      class="chartSave flex items-center justify-center w-[100%]"
+                    >
+                      <canvas id="saveChart3" class="w-[200px]"></canvas>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -341,228 +429,399 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const { AgCharts } = agCharts;
 
-      const categories = {{ categories|safe }};
-      const amounts = {{ amount|safe }};
-      const income = {{ income|safe }};
+      console.log("lll");
 
-      console.log("Categories:", categories);
-      console.log("Amounts:", amounts);
-      console.log("Income:", income);
+      const categories = {{ categories| safe
+    }};
+    const amounts = {{ amount| safe }};
+    const income = {{ income| safe }};
 
-      if(!categories || categories.length === 0 || !amounts || amounts.length === 0){
-        document.getElementById("myChart").innerHTML = "<p style='color: white; text-align: center;'>داده ای برای نمایش وجود ندارد😊🫡</p>";
-        return;
+    console.log("Categories:", categories);
+    console.log("Amounts:", amounts);
+    console.log("Income:", income);
+
+    // بررسی داده‌ها
+    if (!categories || categories.length === 0 || !amounts || amounts.length === 0) {
+      document.getElementById("donutChart").outerHTML = "<p>داده‌ای برای نمایش وجود ندارد 😊🫡</p>";
+      return;
+    }
+
+    if (categories.length !== amounts.length) {
+      console.error("Categories and amounts length mismatch.");
+      return;
+    }
+
+    const data = categories.map((category, index) => ({
+      label: category,
+      value: amounts[index],
+    }));
+
+    console.log("Data for chart:", data);
+
+    const numFormatter = new Intl.NumberFormat("en-US");
+    const totalSpending = data.reduce((sum, d) => sum + d.value, 0);
+    const totalRemaining = income - totalSpending;
+
+    console.log("Total Spending:", totalSpending);
+    console.log("Total Remaining:", totalRemaining);
+
+    const centerTextPlugin = {
+      id: 'centerText',
+      beforeDraw(chart) {
+        const { width } = chart;
+        const { height } = chart;
+        const ctx = chart.ctx;
+        ctx.restore();
+
+        const fontSize = (height / 10).toFixed(2);
+        ctx.font = `${fontSize}px Arial`;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+
+        const text = income > 0 ? "باقی‌مانده" : "مجموع هزینه‌ها";
+        const subText = income > 0
+          ? `تومان ${numFormatter.format(totalRemaining)}`
+          : `تومان ${numFormatter.format(totalSpending)}`;
+
+        const x = width / 2;
+        const y = height / 2;
+
+        ctx.fillStyle = 'white';
+        ctx.fillText(text, x, y - 10);
+        ctx.font = `${(height / 14).toFixed(2)}px Arial`;
+        ctx.fillStyle = '#ffed32';
+        ctx.fillText(subText, x, y + 15);
+
+        ctx.save();
       }
+    };
 
-      if (categories.length !== amounts.length) {
-        console.error("Categories and amounts length mismatch.");
-        return;
-      }
+    const chartData = {
+      labels: data.map(d => d.label),
+      datasets: [{
+        data: data.map(d => d.value),
+        backgroundColor: ['#fca311', '#fba110', '#ffce56', '#a7a7a7', '#ffed32', '#284B63'],
+        hoverBackgroundColor: ['#b67b24', '#fcad2a', '#ffdb73', '#b7b7b7', '#ffee54', '#35657a'],
+        borderWidth: 0,
+        hoverBorderColor: '#ffffff',
+        hoverBorderWidth: 2
 
+      }],
 
-      const data = categories.map((category, index)=> ({
-        type: category,
-        count: amounts[index],
-      }));
+    };
 
-
-      console.log("Data for chart:", data);
-
-      const numFormatter = new Intl.NumberFormat("en-US");
-      const total = income - data.reduce((sum, d) => sum + d["count"], 0);
-
-
-      console.log("Total remaining:", total);
-
-      const options = {
-        container: document.getElementById("myChart"),
-        data,
-        title: {
-          text: "هزینه",
-          color: "white",
-        },
-        background: {
-          fill: "#353535",
-        },
-        series: [
-          {
-            type: "donut",
-            calloutLabelKey: "type",
-            angleKey: "count",
-            sectorLabelKey: "count",
-            calloutLabel: {
-            enabled: false,
-            },
-            sectorLabel: {
-              fontSize: 14,
-              color: "white",
-              labelPlacement: 'inside',
-              formatter: ({ datum }) =>
-                `${numFormatter.format(datum.count)}`,
-            },
-            innerRadiusRatio: 0.68,
-            innerLabels: [
-              {
-                text: "باقی مانده",
-                fontSize: 15,
-                color: "white",
-              },
-              {
-                text: `تومان ${numFormatter.format(total)}`,
-                fontSize: 13,
-                spacing: 10,
-                color: "white",
-              },
-            ],
-            tooltip: {
-              renderer: ({ datum, calloutLabelKey, sectorLabelKey }) => ({
-                content: `${datum[calloutLabelKey]}: ${numFormatter.format(
-                  datum[sectorLabelKey]
-                )}`,
-              }),
-            },
-            sectorSpacing: 0,
-            fills: ["#a47012", "#fba110", "#ffce56", "#a7a7a7", "#ffed32", "#284B63"],
-            strokes: ["#FFFFFF"],
-          },
-        ],
+    const chartOptions = {
+      responsive: true,
+      plugins: {
         legend: {
+
           position: 'bottom',
-          item: {
-            label: {
-              color: 'white',
-              fontSize: 12,
-            },
-            marker: {
-              fill: 'white',
-            },
+          labels: {
+            color: 'white',
+            fontSize: 12,
+
           },
+          margin: {
+            top: 20
+          },
+          padding: {
+            top: 20
+          }
         },
-      };
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              const value = tooltipItem.raw;
+              return ` ${numFormatter.format(value)} تومان`;
+            }
+          }
+        }
+      },
+      cutout: '70%',
 
-      console.log("Chart options:", options);
+    };
 
-      AgCharts.create(options);
-
-      console.log("Chart created");
-        console.log("kkk");
-      const options4 = {
-        container: document.getElementById("myChart4"),
-        data: [
-          {
-            month: "تیر",
-            price: 28000,
-            v: 25000,
-            menDelta: 280000,
-            womenDelta: 250000,
-          },
-          {
-            month: "مرداد",
-            price: 280000,
-            v: 400000,
-            menDelta: 280000,
-            womenDelta: 400000,
-          },
-          {
-            month: "شهریور",
-            price: 320000,
-            v: 30000,
-            menDelta: 320000,
-            womenDelta: 300000,
-          },
-        ],
-        series: [
-          {
-            type: "bar",
-            direction: "horizontal",
-            xKey: "month",
-            yKey: "menDelta",
-            yName: "درامد",
-            fill: "#284B63",
-            // fill:"#3C6E71",
-            cornerRadius: 20,
-            label: {
-              formatter: ({ value }) => value.toFixed(0),
-            },
-          },
-          {
-            type: "bar",
-            direction: "horizontal",
-            xKey: "month",
-            yKey: "womenDelta",
-            yName: "مصرف",
-            fill: "#FcA311",
-            cornerRadius: 20,
-            label: {
-              formatter: ({ value }) => value.toFixed(0),
-            },
-          },
-        ],
-        axes: [
-          {
-            type: "category",
-            position: "left",
-            line: {
-              enabled: true,
-            },
-            label: {
-              enabled: true,
-            },
-          },
-          {
-            type: "number",
-            position: "bottom",
-            nice: false,
-            min: 0,
-            max: "100%",
-            label: {
-              enabled: false,
-            },
-          },
-        ],
-      };
-
-      AgCharts.create(options4);
-    });
-  </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {});
-  </script>
-  {% comment %}
-  <canvas id="spendingChart" width="400" height="400"></canvas>
-
-  <script>
-
-    LicenseManager.setLicenseKey("your_license_key");
-
-    const categories = {{ categories|safe }};
-    const amounts = {{ amounts|safe }};
-    console.log(categories);
-    console.log(amounts);
-
-
-    const ctx = document.getElementById('spendingChart').getContext('2d');
+    const ctx = document.getElementById('donutChart').getContext('2d');
     new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: categories,
-            datasets: [{
-                data: amounts,
-                backgroundColor: ['#ff9f40', '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'top' },
-            },
-        },
+      type: 'doughnut',
+      data: chartData,
+      options: chartOptions,
+
+      plugins: [centerTextPlugin] // استفاده از پلاگین سفارشی
+    });
     });
   </script>
-  {% endcomment %}
+  <!-- <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const { AgCharts } = agCharts;
+
+    const categories = {{ categories| safe
+  }};
+  const amounts = {{ amount| safe }};
+  const income = {{ income| safe }};
+
+  console.log("Categories:", categories);
+  console.log("Amounts:", amounts);
+  console.log("Income:", income);
+
+  if (!categories || categories.length === 0 || !amounts || amounts.length === 0) {
+    document.getElementById("myChart").innerHTML = "<p style='color: white; text-align: center;'>داده ای برای نمایش وجود ندارد😊🫡</p>";
+    return;
+  }
+
+  if (categories.length !== amounts.length) {
+    console.error("Categories and amounts length mismatch.");
+    return;
+  }
+
+
+  const data = categories.map((category, index) => ({
+    type: category,
+    count: amounts[index],
+  }));
+
+
+  console.log("Data for chart:", data);
+
+  const numFormatter = new Intl.NumberFormat("en-US");
+  const totalSpending = data.reduce((sum, d) => sum + d["count"], 0);
+  const totalRemaining = income - totalSpending;
+
+
+  console.log("Total Spending:", totalSpending);
+  console.log("Total Remaining:", totalRemaining);
+
+  const options = {
+    container: document.getElementById("myChart"),
+    data,
+
+    background: {
+      fill: "#353535",
+    },
+    series: [
+      {
+        type: "donut",
+        calloutLabelKey: "type",
+        angleKey: "count",
+        sectorLabelKey: "count",
+        calloutLabel: {
+          enabled: false,
+        },
+        sectorLabel: {
+          fontSize: 8,
+          color: "black",
+          labelPlacement: 'inside',
+          formatter: ({ datum }) =>
+            `${numFormatter.format(datum.count)}`,
+        },
+        innerRadiusRatio: 0.6,
+        innerLabels: [
+          {
+            text: income == 0 ? "مجموع هزینه ها" : "باقی مانده",
+            fontSize: 15,
+            color: "white",
+          },
+          {
+            text: income > 0
+              ? `تومان ${numFormatter.format(totalRemaining)}`
+              : `تومان ${numFormatter.format(totalSpending)}`,
+            fontSize: 13,
+            spacing: 10,
+            color: "white",
+          },
+        ],
+        tooltip: {
+          renderer: ({ datum, calloutLabelKey, sectorLabelKey }) => ({
+            content: `${datum[calloutLabelKey]}: ${numFormatter.format(
+              datum[sectorLabelKey]
+            )}`,
+          }),
+        },
+        sectorSpacing: 0,
+        fills: ["#a47012", "#fba110", "#ffce56", "#a7a7a7", "#ffed32", "#284B63"],
+        strokes: ["#FFFFFF"],
+      },
+    ],
+    legend: {
+      position: 'bottom',
+      item: {
+        label: {
+          color: 'white',
+          fontSize: 12,
+        },
+        marker: {
+          fill: 'white',
+        },
+      },
+    },
+  };
+
+  console.log("Chart options:", options);
+
+  AgCharts.create(options);
+console.log("Categories:", categories);
+console.log("Amounts:", amounts);
+console.log("Income:", income);
+    });
+</script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const ctxSave = document.getElementById("saveChart").getContext("2d");
+      const ctxSave2 = document.getElementById("saveChart2").getContext("2d");
+      const ctxSave3 = document.getElementById("saveChart3").getContext("2d");
+
+      const gradient = ctxSave.createLinearGradient(0, 600, 0, 0);
+      gradient.addColorStop(0, "#fca311");
+      gradient.addColorStop(1, "#ffed32");
+
+      const data1 = {
+        labels: ["هدف ۱"],
+        datasets: [
+          {
+            label: "پیشرفت",
+            data: [85, 60, 45, 90],
+            backgroundColor: gradient,
+            borderColor: "black",
+            borderWidth: 2,
+            borderRadius: 100,
+            borderSkipped: false,
+            barPercentage: 0.6,
+            categoryPercentage: 1.0,
+            barThickness: 15, // عرض میله
+          },
+        ],
+      };
+
+      const data2 = {
+        labels: ["هدف ۱"],
+        datasets: [
+          {
+            label: "پیشرفت",
+            data: [85, 60, 45, 90],
+            backgroundColor: gradient,
+            borderColor: "black",
+            borderWidth: 2,
+            borderRadius: 100,
+            borderSkipped: false,
+            barPercentage: 0.6,
+            categoryPercentage: 1.0,
+            barThickness: 15, // عرض میله
+          },
+        ],
+      };
+      const data3 = {
+        labels: ["هدف ۱"],
+        datasets: [
+          {
+            label: "پیشرفت",
+            data: [85, 60],
+            backgroundColor: gradient,
+            borderColor: "black",
+            borderWidth: 2,
+            borderRadius: 100,
+            borderSkipped: false,
+            barPercentage: 0.6,
+            categoryPercentage: 1.0,
+            barThickness: 15, // عرض میله
+          },
+        ],
+      };
+      const optionsSave = {
+        indexAxis: "y",
+        scales: {
+          x: {
+            beginAtZero: true,
+            //هذف نهایی
+            max: 150,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        responsive: true,
+      };
+      const optionsSave2 = {
+        indexAxis: "y",
+        scales: {
+          x: {
+            beginAtZero: true,
+            //هذف نهایی
+            max: 100,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        responsive: true,
+      };
+      const optionsSave3 = {
+        indexAxis: "y",
+        scales: {
+          x: {
+            beginAtZero: true,
+            //هذف نهایی
+            max: 100,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        responsive: true,
+      };
+
+      new Chart(ctxSave, {
+        type: "bar",
+        data: data1,
+        options: optionsSave,
+      });
+
+      new Chart(ctxSave2, {
+        type: "bar",
+        data: data2,
+        options: optionsSave2,
+      });
+
+      new Chart(ctxSave3, {
+        type: "bar",
+        data: data3,
+        options: optionsSave3,
+      });
+    });
+  </script>
+  <!-- <script>
+  document.addEventListener("DOMContentLoaded", () => { });
+</script> -->
 
   <script src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@10.3.3/dist/umd/ag-charts-enterprise.js?t=1731495816075"></script>
   {% comment %}

@@ -1,686 +1,698 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lemon&family=Lexend+Exa:wght@100..900&family=Marhey:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Scheherazade+New:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lemon&family=Lexend+Exa:wght@100..900&family=Marhey:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Scheherazade+New:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <script src="https://cdn.ag-grid.com/ag-charts-community/v5.0.0/ag-charts-community.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <script
-        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        clifford: '#da373d',
-                        Yellow: "#fca311",
-                        Gray: "#353535",
-
-                    },
-                    fontFamily: {
-                        lemon: ['lemon'],
-                        error: ["error"],
-                        title: ["title"],
-                        Material:["Material Symbols Outlined"]
-
-
-                    },
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+              Yellow: "#fca311",
+              Gray: "#353535",
+            },
+            fontFamily: {
+              lemon: ["lemon"],
+              error: ["error"],
+              title: ["title"],
+              Material: ["Material Symbols Outlined"],
+            },
+          },
+        },
+      };
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <style media="only screen">
-        :root {
-            --button-background-color: transparent;
-            --button-text-color: #212529;
-            --button-color-border-primary: #d0d5dd;
-            --button-hover-background-color: rgba(0, 0, 0, 0.1);
-            --select-chevron: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23182230" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9L12 15L18 9"/></svg>');
+      :root {
+        --button-background-color: transparent;
+        --button-text-color: #212529;
+        --button-color-border-primary: #d0d5dd;
+        --button-hover-background-color: rgba(0, 0, 0, 0.1);
+        --select-chevron: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23182230" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9L12 15L18 9"/></svg>');
 
-            overflow: hidden;
-            font-family: -apple-system, "system-ui", "Segoe UI", Roboto,
-                "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
-                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-                "Noto Color Emoji";
-        }
+        overflow: hidden;
+        font-family: -apple-system, "system-ui", "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+          "Noto Color Emoji";
+      }
 
-        :root[data-dark-mode="false"] {
-            background: #192232;
-        }
+      :root[data-dark-mode="false"] {
+        background: #192232;
+      }
 
-        :root[data-dark-mode="true"] {
-            --button-text-color: #f8f9fa;
-            --button-color-border-primary: rgb(255, 255, 255);
-            --button-hover-background-color: #2a343e;
-            --select-chevron: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9L12 15L18 9"/></svg>');
+      :root[data-dark-mode="true"] {
+        --button-text-color: #f8f9fa;
+        --button-color-border-primary: rgb(255, 255, 255);
+        --button-hover-background-color: #2a343e;
+        --select-chevron: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9L12 15L18 9"/></svg>');
 
-            background: #192232;
-            color: white;
-        }
+        background: #192232;
+        color: white;
+      }
 
+      :root,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+      }
 
-        :root,
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: grid;
-            /* grid-auto-rows: minmax(0, 1fr);
+      body {
+        display: grid;
+        /* grid-auto-rows: minmax(0, 1fr);
          grid-auto-columns: minmax(0, 1fr); */
-        }
-
+      }
     </style>
+  </head>
 
-</head>
-
-<body class="bg-[#eeeeee] overflow-hidden ">
-    <div dir="" class="flex ">
-        <div class="flex-1 ">
-            <div dir="rtl"
-                class=" header h-[70px] z-40 bg-white px-5 sticky  top-0 flex justify-between items-center text-[20px] font-[40px]">
-                <p class="text-[28px]">داشبورد</p>
-                <div>
-                    <div class="icon">
-                        <span class="material-symbols-outlined text-[50px]">
-                            account_circle
-                        </span>
-                    </div>
-                    <div class="buttton"></div>
-                </div>
+  <body class="bg-[#eeeeee] overflow-hidden">
+    <div dir="" class="flex">
+      <div class="flex-1">
+        <div
+          dir="rtl"
+          class="header h-[70px] z-40 bg-white px-5 sticky top-0 flex justify-between items-center text-[20px] font-[40px]"
+        >
+          <p class="text-[28px]">داشبورد</p>
+          <div>
+            <div class="icon">
+              <span class="material-symbols-outlined text-[50px]">
+                account_circle
+              </span>
             </div>
-            
-
-            <div class="px-5 py-2 mx-[32px]">
-                 <div class="upDashboard flex justify-between  " dir="rtl">
-                    <div class="detailsBox w-[30%]">
-                        <div class="mb-3">
-                         
-                            <div dir="rtl" class=" bg-[#353535] rounded-[30px] w-[100%]  h-[50vh]">
-                                <div>
-                                    <div class="flex items-center justify-center pt-5">
-                                        <span class="material-symbols-outlined text-Yellow">
-                                            receipt_long
-                                        </span>
-                                        <h1 class="text-center  text-white">
-                                            تراکنش های اخیر
-                                        </h1>
-                                    </div>
-    
-                                    <ul class="px-5 py-3">
-                                        <li class="flex justify-between my-4 text-white">
-                                            <div>
-                                                پول تو جیبی
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#ffed32] mx-1">
-                                                    trending_up
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex text-white justify-between my-4">
-                                            <div>
-                                                شهریه کلاس زبان
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#3c6c6f] mx-1">
-                                                    trending_down
-                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex text-white justify-between my-4">
-                                            <div>
-                                                بستنی
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#3c6c6f] mx-1">
-                                                    trending_down
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex text-white justify-between my-4">
-                                            <div>
-                                                پول تو جیبی
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#ffed32] mx-1">
-                                                    trending_up
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex text-white justify-between my-4">
-                                            <div>
-                                                فروش کتاب درسی
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#ffed32] mx-1">
-                                                    trending_up
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex text-white justify-between my-4">
-                                            <div>
-                                                هدفون
-                                            </div>
-                                            <div class="flex items-center">
-                                                <p>price</p>
-                                                <div class="icon material-symbols-outlined text-[#3c6c6f] mx-1">
-                                                    trending_down
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-    
-                        </div>
-                    </div>
-                    <div class="avrageBox w-[30%] border-[2px] border-black bg-white rounded-[30px] max-h-[50vh]">
-                         <div class="title text-center mt-5 ">میانگین برآمد</div>
-                         <div class="flex items-center justify-center">
-                            <div class="w-[100%]">
-                                <div class="w-[100%] h-[70px] justify-center my-4 text-white flex ">
-    
-                                    <div class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center">
-                                        <div class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center">روزانه</div>
-                                         <p class="mr-[50px]" >100t</p>
-                                    </div>
-                                </div>
-                                <div class="w-[100%] h-[70px] justify-center my-4 text-white flex ">
-    
-                                    <div class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center">
-                                        <div class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center">روزانه</div>
-                                         <p class="mr-[50px]" >100t</p>
-                                    </div>
-                                </div>
-                                <div class="w-[100%] h-[70px] justify-center my-4 text-white flex ">
-    
-                                    <div class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center">
-                                        <div class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center">روزانه</div>
-                                         <p class="mr-[50px]" >100t</p>
-                                    </div>
-                                </div>
-                             </div>
-                         </div>
-                      
-                    </div>
-                    <div class="chart w-[30%]">
-                       
-                        <div class="">
-                            <!-- <div id="chartContainer" style="height: 300px; width: 100%;border-radius: 30px;overflow: hidden;background-color: #212529;"></div> -->
-
-                            <div class="bg-[#353535] rounded-[30px] overflow-hidden h-[30vh] md:h-[50vh] " id="myChart">
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                    
-                 </div>
-                 <div class="px-[20px] downDashboard flex justify-between mx-[32px]" dir="rtl">
-                 <div class="chart w-[30%] border-[3px] bg-white border-black rounded-[30px] flex justify-center items-center ">
-                            <canvas id="myChart2" class="w-[100%] text-white"></canvas> 
-                 </div> 
-                 <div class="md:relative h-[34vh] use w-[65%] bg-[#353535] rounded-[30px]  ">
-                    <div class="relative">
-                        <div class="flex justify-between mb-2">
-                            <div class="w-[45%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]">
-                                <div>
-                                <div class="">
-                                    خواسته ها
-                                </div>
-                                <div class="text-[30px] text-[#FF9E00]">30,000t</div>   
-                                </div>
-                             
-                            </div>
-                            <div class="w-[45%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]">
-                                <div>
-                                <div class="">
-                                    پس انداز
-                                </div>
-                                <div class="text-[30px] text-[#FF9E00]">30,000t</div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="flex justify-center items-center md:w-[140px] md:h-[140px] md:translate-y-[-50%] md:translate-x-[-50%] rounded-full w-[150px] h-[150px] absolute translate-x-[-50%] translate-y-[-50%] bg-[#353535] top[50%] left-[50%]">
-                            <div class=" text-center text-white ">
-                                <h1 class="text-[12px] mb-3">هزینه های مصرفی</h1>
-                                <div>
-                                    <select id=""
-                                    class="w-[80px] h-[40px] appearance-none text-[10px] mt-1 text-center rounded-[20px] bg-transparent border-white border-[1px]  text-white focus:text-black focus:border-white hover:border-white">
-                                    <option class="leading-3" value="day">روز</option>
-                                    <option class="leading-3" value="weekend">هفته</option>
-                                    <option class="leading-3" value="month">ماه</option>
-                                    <option class="leading-3" value="month">همه</option>
-
-                                </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between ">
-                            <div class="w-[45%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]">
-                                <div>
-                                <div class="">
-                                    نیازهای ضروری
-                                </div>
-                                <div class="text-[30px] text-[#FF9E00]">30,000t</div>
-                                </div>
-                                
-                            </div>
-                            <div class="w-[45%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]">
-                                <div>
-                                <div class="">
-                                    سایر
-                                </div>
-                                <div class="text-[30px] text-[#FF9E00]">30,000t</div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            <div class="buttton"></div>
+          </div>
         </div>
 
-        <div dir="rtl" class="w-[16%] bg-[#D6D6D6] h-[100vh]  sticky bottom-0 top-0 right-0 pt-2 px-4">
-            <div class="logo flex  justify-center items-center">
+        <div class="px-5 py-2 mx-[32px]">
+          <div class="upDashboard flex justify-between" dir="rtl">
+            <div class="detailsBox w-[30%]">
+              <div class="mb-3">
+                <div
+                  dir="rtl"
+                  class="bg-[#353535] rounded-[30px] w-[100%] h-[50vh]"
+                >
+                  <div>
+                    <div class="flex items-center justify-center pt-5">
+                      <span class="material-symbols-outlined text-Yellow">
+                        receipt_long
+                      </span>
+                      <h1 class="text-center text-white">تراکنش های اخیر</h1>
+                    </div>
 
-                <img src="../cashflow/image/logo.png" class="w-[150px]" alt="">
+                    <ul class="px-5 py-3">
+                      <li class="flex justify-between my-4 text-white">
+                        <div>پول تو جیبی</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#ffed32] mx-1"
+                          >
+                            trending_up
+                          </div>
+                        </div>
+                      </li>
+                      <li class="flex text-white justify-between my-4">
+                        <div>شهریه کلاس زبان</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#3c6c6f] mx-1"
+                          >
+                            trending_down
+                          </div>
+                        </div>
+                      </li>
+                      <li class="flex text-white justify-between my-4">
+                        <div>بستنی</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#3c6c6f] mx-1"
+                          >
+                            trending_down
+                          </div>
+                        </div>
+                      </li>
+                      <li class="flex text-white justify-between my-4">
+                        <div>پول تو جیبی</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#ffed32] mx-1"
+                          >
+                            trending_up
+                          </div>
+                        </div>
+                      </li>
+                      <li class="flex text-white justify-between my-4">
+                        <div>فروش کتاب درسی</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#ffed32] mx-1"
+                          >
+                            trending_up
+                          </div>
+                        </div>
+                      </li>
+                      <li class="flex text-white justify-between my-4">
+                        <div>هدفون</div>
+                        <div class="flex items-center">
+                          <p>price</p>
+                          <div
+                            class="icon material-symbols-outlined text-[#3c6c6f] mx-1"
+                          >
+                            trending_down
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="grid px-5 gap-20">
-                <ul class=" pt-10 col-start-1 col-end-3">
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                home
-                            </span>
-
-                        </div>
-                        <p class="text-[15px]">کارتابل</p>
-
-                    </li>
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                app_registration
-
-
-                            </span>
-                        </div>
-                        <p class="text-[15px]">ثبت هزینه</p>
-
-                    </li>
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                query_stats
-
-                            </span>
-                        </div>
-                        <p class="text-[15px]">تجزیه و تحلیل</p>
-
-                    </li>
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                add_notes
-
-                            </span>
-                        </div>
-                        <p class="text-[15px]">افزودن دسته</p>
-
-                    </li>
-
-
-                </ul>
-                <ul class="bottom-0 col-start-1 col-end-3">
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                support_agent
-                            </span>
-                        </div>
-                        <p class="text-[15px]">پشتیبانی</p>
-
-                    </li>
-                    <li class="flex  items-center mb-8">
-                        <div class="ml-5">
-                            <span class="material-symbols-outlined text-[35px] text-Yellow">
-                                exit_to_app
-
-                            </span>
-                        </div>
-                        <p class="text-[15px]">خروج</p>
-
-                    </li>
-                </ul>
+            <div
+              class="avrageBox w-[30%] border-[2px] border-black bg-white rounded-[30px] max-h-[50vh]"
+            >
+              <div class="title text-center mt-5">میانگین برآمد</div>
+              <div class="flex items-center justify-center">
+                <div class="w-[100%]">
+                  <div
+                    class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                  >
+                    <div
+                      class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center"
+                    >
+                      <div
+                        class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                      >
+                        روزانه
+                      </div>
+                      <p class="mr-[50px]">100t</p>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                  >
+                    <div
+                      class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center"
+                    >
+                      <div
+                        class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                      >
+                        روزانه
+                      </div>
+                      <p class="mr-[50px]">100t</p>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[100%] h-[70px] justify-center my-4 text-white flex"
+                  >
+                    <div
+                      class="rounded-full bg-[#353535] w-[75%] flex justify-start items-center"
+                    >
+                      <div
+                        class="rounded-full border-[3px] bg-[#353535] border-[#FCA311] w-[30%] h-[100%] flex items-center justify-center"
+                      >
+                        روزانه
+                      </div>
+                      <p class="mr-[50px]">100t</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="chart w-[30%]">
+              <div class="">
+                <!-- <div id="chartContainer" style="height: 300px; width: 100%;border-radius: 30px;overflow: hidden;background-color: #212529;"></div> -->
 
+                <div
+                  class="bg-[#353535] rounded-[30px] overflow-hidden h-[30vh] md:h-[50vh]"
+                  id="myChart"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div
+          class="px-[20px] downDashboard flex justify-between mx-[32px]"
+          dir="rtl"
+        >
+          <div
+            class="chart w-[30%] border-[3px] bg-white border-black rounded-[30px] flex justify-center items-center"
+          >
+            <canvas id="myChart2" class="w-[100%] text-white"></canvas>
+          </div>
+          <div
+            class="md:relative h-[34vh] use w-[65%] bg-[#353535] rounded-[30px]"
+          >
+            <div class="relative">
+              <div class="grid grid-cols-2 gap-2 place-items-center">
+                <div
+                  class="w-[90%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]"
+                >
+                  <div>
+                    <div class="">خواسته ها</div>
+                    <div class="text-[30px] text-[#FF9E00]">30,000t</div>
+                  </div>
+                </div>
+                <div
+                  class="w-[90%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]"
+                >
+                  <div>
+                    <div class="">پس انداز</div>
+                    <div class="text-[30px] text-[#FF9E00]">30,000t</div>
+                  </div>
+                </div>
 
+                <div
+                  class="w-[90%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]"
+                >
+                  <div>
+                    <div class="">نیازهای ضروری</div>
+                    <div class="text-[30px] text-[#FF9E00]">30,000t</div>
+                  </div>
+                </div>
+                <div
+                  class="w-[90%] m-1 bg-white flex items-center text-center justify-center h-24 rounded-[30px]"
+                >
+                  <div>
+                    <div class="">سایر</div>
+                    <div class="text-[30px] text-[#FF9E00]">30,000t</div>
+                  </div>
+                </div>
+              </div>
 
+              <div
+                class="circle flex justify-center items-center md:w-[140px] md:h-[140px] md:translate-y-[-50%] md:translate-x-[-50%] rounded-full w-[150px] h-[150px] absolute translate-x-[-50%] translate-y-[-50%] bg-[#353535] top-[50%] left-[50%]"
+              >
+                <div class="text-center text-white">
+                  <h1 class="text-[12px] mb-3">هزینه های مصرفی</h1>
+                  <div>
+                    {% comment %}
+                    <select
+                      id=""
+                      class="w-[80px] h-[40px] appearance-none text-[10px] mt-1 text-center rounded-[20px] bg-transparent border-white border-[1px] text-white focus:text-black focus:border-white hover:border-white"
+                    >
+                      {% for period in ['روز', 'هفته', 'ماه', 'همه'] %}
+                      <option value="{{ period }}">{{ period }}</option>
+                      {% endfor %}
+                    </select>
+                    {% endcomment %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        dir="rtl"
+        class="w-[16%] bg-[#D6D6D6] h-[100vh] sticky bottom-0 top-0 right-0 pt-2 px-4"
+      >
+        <div class="logo flex justify-center items-center">
+          <img src="../cashflow/image/logo.png" class="w-[150px]" alt="" />
+        </div>
+        <div class="grid px-5 gap-20">
+          <ul class="pt-10 col-start-1 col-end-3">
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  home
+                </span>
+              </div>
+              <p class="text-[15px]">کارتابل</p>
+            </li>
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  app_registration
+                </span>
+              </div>
+              <p class="text-[15px]">ثبت هزینه</p>
+            </li>
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  query_stats
+                </span>
+              </div>
+              <p class="text-[15px]">تجزیه و تحلیل</p>
+            </li>
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  add_notes
+                </span>
+              </div>
+              <p class="text-[15px]">افزودن دسته</p>
+            </li>
+          </ul>
+          <ul class="bottom-0 col-start-1 col-end-3">
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  support_agent
+                </span>
+              </div>
+              <p class="text-[15px]">پشتیبانی</p>
+            </li>
+            <li class="flex items-center mb-8">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow">
+                  exit_to_app
+                </span>
+              </div>
+              <p class="text-[15px]">خروج</p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </body>
 
+  <script src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@10.3.3/dist/umd/ag-charts-enterprise.js?t=1731495815863"></script>
 
-</body>
+  <script src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@10.3.3/dist/umd/ag-charts-enterprise.js?t=1731495816075"></script>
+  <script src="../cashflow/js/data.js"></script>
+  <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
-<script
-    src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@10.3.3/dist/umd/ag-charts-enterprise.js?t=1731495815863"></script>
+  <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("l");
 
-<script
-    src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@10.3.3/dist/umd/ag-charts-enterprise.js?t=1731495816075"></script>
-<script src="../cashflow/js/data.js"></script>
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    const { AgCharts } = agCharts;
 
-<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("l");
-    
-const { AgCharts } = agCharts;
+    const categories = {{ categories|safe }};
+    const amount = {{ amount|safe }};
+    const income = {{ income|safe }};
 
-const data = [
- 
-    { type: "test1", count: 6000 },
-    { type: "test2", count: 5656 },
-    { type: "test3", count: 8899 },
-    { type: "test4", count: 15349 },
- 
-  ];;
-  const numFormatter = new Intl.NumberFormat("en-US");
-  const total = data.reduce((sum, d) => sum + d["count"], 0);
+    const data = categories.map((category, index) =>({
+        type: category,
+        count: amount[index],
 
-  const options = {
-  container: document.getElementById("myChart"),
-  data,
-  title: {
-    text: "هزینه",
-    color:'white',
-  },
- 
-  background: {
-    color:'white',
-    fill: '#353535',  
-  },
-  
-  series: [
-    {
-      type: "donut",
-      calloutLabelKey: "type",
-      angleKey: "count",
-      sectorLabelKey: "count",
-      color:"white",
-      fill:"white",
-      calloutLabel: {
-        color:'white',
-        fill:"white",
+    }));
+      const numFormatter = new Intl.NumberFormat("en-US");
+      const total = income - (data.reduce((sum, d) => sum + d["count"], 0));
 
-        enabled: false,
-      },
-      
-      sectorLabel: {
-        fontSize: 7,
-        color:"black",
-        fill:"white",
-        formatter: ({ datum, sectorLabelKey }) => {
-          const value = datum[sectorLabelKey];
-          return numFormatter.format(value);
-        },
-      },
+      const options = {
+      container: document.getElementById("myChart"),
+      data,
       title: {
+        text: "هزینه",
         color:'white',
-
       },
-      innerRadiusRatio: 0.68,
-      
-      innerLabels: [
+
+      background: {
+        color:'white',
+        fill: '#353535',
+      },
+
+      series: [
         {
-            
-          text:"باقی مانده",
-          fontSize: 15,
-          color:'white',
-        },
-        {
-          text:"تومان"+numFormatter.format(total),
-          fontSize: 14,
-          spacing: 10,
-          color:"white"
-        },
-        
-      ],
+          type: "donut",
+          calloutLabelKey: "type",
+          angleKey: "count",
+          sectorLabelKey: "count",
+          color:"white",
+          fill:"white",
+          calloutLabel: {
+            color:'white',
+            fill:"white",
 
-      tooltip: {
-        renderer: ({ datum, calloutLabelKey, title, sectorLabelKey }) => {
-          return {
-            title,
-            color:"white",
-            content: `${datum[calloutLabelKey]}: ${numFormatter.format(datum[sectorLabelKey])}`,
-          };
-        },
-      },
-      sectorSpacing: 0,
+            enabled: false,
+          },
 
-      color:"white",
-      fills: ['#a7a7a7', '#fba110', '#ffed32', '#a47012'],  
-      strokes:["#FFFFFF"],
-
-    },
-  ],
-};
-
-    function formatNumber(value) {
-  value /= 1000_000;
-  return `${Math.floor(value)}M`;
-}
-
-
-
-
-const options4 = {
-  container: document.getElementById("myChart4"),
-  data: [
-    { month: "تیر", price: 28000, v: 25000, menDelta: 280000, womenDelta: 250000 },
-    { month: "مرداد", price: 280000, v: 400000, menDelta: 280000, womenDelta: 400000 },
-    { month: "شهریور", price: 320000, v: 30000, menDelta: 320000, womenDelta: 300000 },
-   
-  ],
-  // title: {
-  //   text: "Changes in Prison Population",
-  // },
-  // footnote: {
-  //   text: "Source: Ministry of Justice, HM Prison Service, and HM’s Prison and Probation Service",
-  // },
-  series: [
-    {
-      type: "bar",
-      direction: "horizontal",
-      xKey: "month",
-      yKey: "menDelta",
-      yName: "درامد",
-      fill:"#284B63",
-      // fill:"#3C6E71",
-      cornerRadius: 20,
-      label: {
-        formatter: ({ value }) => value.toFixed(0),
-      },
-    },
-    {
-      type: "bar",
-      direction: "horizontal",
-      xKey: "month",
-      yKey: "womenDelta",
-      yName: "مصرف",
-      fill:"#FcA311",
-      cornerRadius: 20,
-      label: {
-        formatter: ({ value }) => value.toFixed(0),
-      },
-    },
-  ],
-  axes: [
-    {
-      
-      type: "category",
-      position: "left",
-      line: {
-        enabled: true,
-      },
-      label: {
-        enabled: true,
-      },
-      // paddingInner: 0.2,
-      // crossLines: [
-      //   {
-      //     type: "line",
-      //     value: "تیر",
-      //     strokeWidth: 0,
-      //     fillOpacity: 0,
-      //     label: {
-      //       text: "تیر",
-      //       position: "bottpm",
-      //     },
-      //   },
-      //   {
-      //     type: "range",
-      //     range: ["مرداد", "مرداد"],
-      //     strokeWidth: 0,
-      //     fillOpacity: 0,
-      //     label: {
-      //       text: "مرداد",
-      //       position: "insideRight",
-      //     },
-      //   },
-      //   {
-      //     type: "range",
-      //     range: ["شهریور", "شهریور"],
-      //     strokeWidth: 0,
-      //     fillOpacity: 0,
-      //     label: {
-      //       text: "شهریور",
-      //       position: "insideRight",
-      //     },
-      //   },
-      //   {
-      //     type: "range",
-      //     range: ["تیر", "تیر"],
-      //     strokeWidth: 0,
-      //     fillOpacity: 0,
-
-      //     label: {
-      //       text: "→ تیر",
-      //       position: "insideRight",
-      //     },
-      //   },
-       
-      // ],
-    },
-    {
-      type: "number",
-      position: "bottom",
-      nice: false,
-      min: 0,
-      max: "100%",
-      label: {
-        enabled: false,
-      },
-    },
-  ],
-};
-
-AgCharts.create(options4);
-AgCharts.create(options);
-
-  });
-   
-
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
-
-<script>
-    const data = {
-            labels: ['مهر', 'آبان', 'آذر'], 
-            datasets: [
-                {
-                    label: ' دخل',
-                    data: [65000, 59000, 80000], 
-                    backgroundColor: '#FFEE32', 
-                    borderColor: '#FFD100', 
-                    borderWidth: 1
-                },
-                {
-                    label: ' خرج',
-                    data: [59000, 48000, 40000], 
-                    backgroundColor: '#D6D6D6', 
-                    borderColor: '#333533', 
-                    borderWidth: 1 
-                }
-            ]
-        };
-
-        const options = {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top' 
-                },
-                // title: {
-                //     display: true,
-                //     text: 'نمودار مقایسه‌ای ماهانه'
-                // }
+          sectorLabel: {
+            fontSize: 5,
+            color:"black",
+            fill:"white",
+            formatter: ({ datum, sectorLabelKey }) => {
+              const value = datum[sectorLabelKey];
+              return numFormatter.format(value);
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 20 
-                    }
-                },
-                x: {
-                    ticks: {
-                        font: {
-                            size: 14 
+          },
+          title: {
+            color:'white',
+
+          },
+          innerRadiusRatio: 0.68,
+
+          innerLabels: [
+            {
+
+              text:"باقی مانده",
+              fontSize: 15,
+              color:'white',
+            },
+            {
+              text:"تومان"+numFormatter.format(total),
+              fontSize: 14,
+              spacing: 10,
+              color:"white"
+            },
+
+          ],
+
+          tooltip: {
+            renderer: ({ datum, calloutLabelKey, title, sectorLabelKey }) => {
+              return {
+                title,
+                color:"white",
+                content: `${datum[calloutLabelKey]}: ${numFormatter.format(datum[sectorLabelKey])}`,
+              };
+            },
+          },
+          sectorSpacing: 0,
+
+          color:"white",
+          fills: ['#a7a7a7', '#fba110', '#ffed32', '#a47012', "#ffce56", "#284B63"],
+          strokes:["#FFFFFF"],
+
+        },
+      ],
+      legend: {
+        position: 'bottom',
+        item: {
+            label: {
+              color: 'white',
+              fontSize: 12,
+            },
+            marker: {
+              fill: 'white',
+            },
+          },
+        },
+    };
+
+        function formatNumber(value) {
+      value /= 1000_000;
+      return `${Math.floor(value)}M`;
+    }
 
 
-                        }
-                    }
-                }
-            }
-        };
 
-        const ctx = document.getElementById('myChart2').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar', 
-            data: data,
-            options: options
-        });
-</script>   
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    const options4 = {
+      container: document.getElementById("myChart4"),
+      data: [
+        { month: "تیر", price: 28000, v: 25000, menDelta: 280000, womenDelta: 250000 },
+        { month: "مرداد", price: 280000, v: 400000, menDelta: 280000, womenDelta: 400000 },
+        { month: "شهریور", price: 320000, v: 30000, menDelta: 320000, womenDelta: 300000 },
+
+      ],
+      // title: {
+      //   text: "Changes in Prison Population",
+      // },
+      // footnote: {
+      //   text: "Source: Ministry of Justice, HM Prison Service, and HM’s Prison and Probation Service",
+      // },
+      series: [
+        {
+          type: "bar",
+          direction: "horizontal",
+          xKey: "month",
+          yKey: "menDelta",
+          yName: "درامد",
+          fill:"#284B63",
+          // fill:"#3C6E71",
+          cornerRadius: 20,
+          label: {
+            formatter: ({ value }) => value.toFixed(0),
+          },
+        },
+        {
+          type: "bar",
+          direction: "horizontal",
+          xKey: "month",
+          yKey: "womenDelta",
+          yName: "مصرف",
+          fill:"#FcA311",
+          cornerRadius: 20,
+          label: {
+            formatter: ({ value }) => value.toFixed(0),
+          },
+        },
+      ],
+      axes: [
+        {
+
+          type: "category",
+          position: "left",
+          line: {
+            enabled: true,
+          },
+          label: {
+            enabled: true,
+          },
+          // paddingInner: 0.2,
+          // crossLines: [
+          //   {
+          //     type: "line",
+          //     value: "تیر",
+          //     strokeWidth: 0,
+          //     fillOpacity: 0,
+          //     label: {
+          //       text: "تیر",
+          //       position: "bottpm",
+          //     },
+          //   },
+          //   {
+          //     type: "range",
+          //     range: ["مرداد", "مرداد"],
+          //     strokeWidth: 0,
+          //     fillOpacity: 0,
+          //     label: {
+          //       text: "مرداد",
+          //       position: "insideRight",
+          //     },
+          //   },
+          //   {
+          //     type: "range",
+          //     range: ["شهریور", "شهریور"],
+          //     strokeWidth: 0,
+          //     fillOpacity: 0,
+          //     label: {
+          //       text: "شهریور",
+          //       position: "insideRight",
+          //     },
+          //   },
+          //   {
+          //     type: "range",
+          //     range: ["تیر", "تیر"],
+          //     strokeWidth: 0,
+          //     fillOpacity: 0,
+
+          //     label: {
+          //       text: "→ تیر",
+          //       position: "insideRight",
+          //     },
+          //   },
+
+          // ],
+        },
+        {
+          type: "number",
+          position: "bottom",
+          nice: false,
+          min: 0,
+          max: "100%",
+          label: {
+            enabled: false,
+          },
+        },
+      ],
+    };
+
+    AgCharts.create(options4);
+    AgCharts.create(options);
+
+      });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const data = {
+      labels: ["مهر", "آبان", "آذر"],
+      datasets: [
+        {
+          label: " دخل",
+          data: [65000, 59000, 80000],
+          backgroundColor: "#FFEE32",
+          borderColor: "#FFD100",
+          borderWidth: 1,
+        },
+        {
+          label: " خرج",
+          data: [59000, 48000, 40000],
+          backgroundColor: "#D6D6D6",
+          borderColor: "#333533",
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    const options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        // title: {
+        //     display: true,
+        //     text: 'نمودار مقایسه‌ای ماهانه'
+        // }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 20,
+          },
+        },
+        x: {
+          ticks: {
+            font: {
+              size: 14,
+            },
+          },
+        },
+      },
+    };
+
+    const ctx = document.getElementById("myChart2").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: data,
+      options: options,
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </html>

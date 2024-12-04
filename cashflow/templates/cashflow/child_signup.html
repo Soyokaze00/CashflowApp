@@ -1,113 +1,238 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Child Login</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              clifford: "#da373d",
-              color3: "rgb(191 161 122 / 61%)",
-            },
-            fontFamily: {
-              lemon: ["lemon"],
-              error: ["error"],
-              title: ["title"],
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Child Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/ag-charts-community/dist/ag-charts.min.js"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lemon&family=Lexend+Exa:wght@100..900&family=Marhey:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Scheherazade+New:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: "#da373d",
+            Yellow: "#fca311",
+            Gray: "#353535",
+          },
+          fontFamily: {
+            lemon: ["lemon"],
+            error: ["error"],
+            title: ["title"],
+            Material: ["Material Symbols Outlined"],
           },
         },
-      };
-    </script>
-  </head>
+      },
+    };
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+</head>
 
-  <body class="bg-yellow-100 flex justify-center">
-    <div class="flex px-[60px] items-center py-10 xl:pr-[180px]" dir="rtl">
-      <div
-        dir="rtl"
-        class="backdrop-blur-md bg-yellow-900/20 rounded-[30px] h-[500px] w-[600px] flex justify-center items-center"
-      >
-        <form method="post" class="block items-center" id="registrationForm">
-          {% csrf_token %}
-          <div
-            class="flex items-center justify-center text-center mb-5 pb-5 font-title mt-5"
-          >
-            <img src="{% static 'image/logo.png' %}" alt="" class="w-[168px]" />
-          </div>
-          <div
-            class="flex items-center justify-center text-[20px] font-bold font-title"
-          >
-            ثبت نام فرزند
-          </div>
-          <div class="relative mb-10">
-            <input
-              type="text"
-              name="username"
-              class="username w-[350px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="لطفا نام کاربری خود را وارد کنید"
-            />
-            <label
-              for="username"
-              class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500"
-              >نام کاربری</label
-            >
-            <span class="text-red-600 font-error text-[12px]">
-              {% for error in form.username.errors %}{{ error }}{% endfor %}
+<body class="bg-[#eeeeee] overflow-hidden">
+  <div dir="" class="flex ">
+    <div class="flex-1">
+      <div dir="rtl"
+        class=" header h-[70px] z-40 bg-white px-5 sticky  top-0 flex justify-between items-center text-[20px] font-[40px]">
+        <p class="text-[28px]">داشبورد</p>
+        <div>
+          <div class="icon">
+            <span class="material-symbols-outlined text-[50px]">
+              account_circle
             </span>
           </div>
+          <div class="buttton"></div>
+        </div>
+      </div>
 
-          <div class="relative">
-            <div
-              class="flex justify-between items-center border-b-2 border-black"
-            >
-              <input
-                type="password"
-                name="password"
-                class="text-black input password peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-                placeholder=""
-              />
-              <label
-                for="password"
-                class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent text-black origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-black dark:peer-focus:text-black peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-black dark:peer-[:not(:placeholder-shown)]:text-black"
-                >رمز عبور</label
-              >
 
-              <i class="material-icons icon cursor-pointer">visibility</i>
+
+      <div class="flex justify-center items-center h-[90%]">
+        <div dir="rtl"
+          class="backdrop-blur-md bg-white border-[3px] border-black  rounded-[30px] h-[420px] w-[600px] flex justify-center items-center">
+          <form method="post" class="block items-center" id="registrationForm">
+            {% csrf_token %}
+            <div class="flex items-center justify-center text-center mb-5 pb-5 font-title mt-5">
+              <img src="{% static 'image/logo.png' %}" alt="" class="w-[168px]" />
             </div>
-            <span class="text-red-600 font-error text-[12px]">
-              {% for error in form.password.errors %}{{ error }}{% endfor %}
-            </span>
-          </div>
+            <div class="flex items-center justify-center text-[20px] font-bold font-title">
+              ثبت نام فرزند
+            </div>
+            <div class="flex mb-10 items-end">
+              <span class="material-symbols-outlined text-[#FFD100] text-[30px]">
+                person
+              </span>
+              <div class="relative  flex-1">
 
-          {% if error %}
-          <p style="color: red; font-weight: bold">{{ error }}</p>
-          {% endif %}
+                <div>
+                  <input type="text" name="username"
+                    class="username w-[350px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                    placeholder="لطفا نام کاربری خود را وارد کنید" />
+                  <label for="username"
+                    class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500">نام
+                    کاربری</label>
+                </div>
 
-          <div class="flex items-center justify-center">
-            <button
-              type="submit"
-              class="bg-gradient-to-b from-yellow-500 to-orange-900 via-orange-600 rounded-3xl text-white font-bold py-[8px] px-12 my-8"
-            >
-              ثبت نام
-            </button>
-          </div>
-        </form>
+
+
+                <span class="text-red-600 font-error text-[12px]">
+                  {% for error in form.username.errors %}{{ error }}{% endfor %}
+                </span>
+              </div>
+            </div>
+
+
+            <div class="flex items-end ju">
+              <span class="material-symbols-outlined text-[#FFD100] text-[30px]">
+                lock
+              </span>
+              <div class="relative flex-1">
+
+                <div class="flex justify-between items-center border-b-2 border-black">
+
+                  <input type="password" name="password"
+                    class="text-black input password peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                    placeholder="" />
+                  <label for="password"
+                    class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent text-black origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500">رمز
+                    عبور</label>
+
+                  <i class="material-icons iconEye cursor-pointer">visibility_off</i>
+                </div>
+                <span class="text-red-600 font-error text-[12px]">
+                  {% for error in form.password.errors %}{{ error }}{% endfor %}
+                </span>
+              </div>
+            </div>
+
+
+            {% if error %}
+            <p style="color: red; font-weight: bold">{{ error }}</p>
+            {% endif %}
+
+            <div class="flex items-center justify-center">
+              <button type="submit"
+                class="bg-gradient-to-b from-yellow-500 to-orange-900 via-orange-600 rounded-2xl text-white font-bold py-[8px] px-12 my-8">
+                ثبت نام
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div
-        class="size-[500px] bg-white rounded-full relative md:translate-x-[90px] md:size-[550px] flex justify-center items-senter"
-      >
-        <img src="{% static 'image/1.png' %}" alt="" class="w-[500px]" />
-      </div>
+
+
+
+
     </div>
-  </body>
+
+    <div dir="rtl" class="w-[16%] bg-[#D6D6D6] h-[100vh]  sticky bottom-0 top-0 right-0 pt-2 px-4">
+      <div class="logo flex  justify-center items-center">
+
+        <img src="{% static 'image/logo.png' %}" alt="" class="w-[130x]" />
+
+      </div>
+      <div class="grid px-5 gap-20">
+        <ul class=" pt-10 col-start-1 col-end-3">
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                home
+              </span>
+
+            </div>
+            <p class="text-[15px]">کارتابل</p>
+
+          </li>
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                app_registration
+
+
+              </span>
+            </div>
+            <p class="text-[15px]">ثبت هزینه</p>
+
+          </li>
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                query_stats
+
+              </span>
+            </div>
+            <p class="text-[15px]">تجزیه و تحلیل</p>
+
+          </li>
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                add_notes
+
+              </span>
+            </div>
+            <p class="text-[15px]">افزودن دسته</p>
+
+          </li>
+
+
+        </ul>
+        <ul class="bottom-0 col-start-1 col-end-3">
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                support_agent
+              </span>
+            </div>
+            <p class="text-[15px]">پشتیبانی</p>
+
+          </li>
+          <li class="flex  items-center mb-8">
+            <div class="ml-5">
+              <span class="material-symbols-outlined text-[35px] text-Yellow">
+                exit_to_app
+
+              </span>
+            </div>
+            <p class="text-[15px]">خروج</p>
+
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+
+  </div>
+  <script>
+    const iconEye = document.querySelector(".iconEye");
+    const input = document.querySelector(".input");
+
+    iconEye.addEventListener("click", () => {
+      if (iconEye.textContent === "visibility") {
+        iconEye.textContent = "visibility_off";
+        input.type = "password";
+      } else {
+        iconEye.textContent = "visibility";
+        input.type = "text";
+      }
+    });
+  </script>
   <script src="{% static 'js/index.js' %}"></script>
+
 </html>

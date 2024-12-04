@@ -115,7 +115,13 @@ def parent_login(request):
             try:
                 parent=Parent.objects.get(username=username)
                 if check_password(password, parent.password):
-                    return redirect('child_signup', parent.id)
+
+                    child=parent.children.first()
+                    if child:
+                        return redirect('parent_dashboard', child.id)
+                    else:
+                        #in case the parent doesn't have any children they will be immediatly taken to the child sign up page
+                        return redirect('child_signup', parent.id)
                 else:
                     return render(request, 'cashflow/parent_login.html', {
                         'form':form,
@@ -314,13 +320,44 @@ def child_dashboard(request, child_id):
 def parent_dashboard(request, child_id):
     child=get_object_or_404(Child, id=child_id)
     parent=child.parent
+    print(request.session.get('child_id'))
+
+    CATEGORY_TRANSLATIONS = {key: value for key, value in Cost.EXPENSE_CATEGORIES}
+
+    top_categories = (
+       Cost.objects.filter(child = child, type='expense')
+       .values('cate_choices')
+       .annotate(total_spending=Sum('amount'))
+       .order_by('-total_spending')[:6]
+    )
+    total_income = (
+    Cost.objects.filter(child=child, type='income')
+    .aggregate(total_income=Sum('amount'))
+    )
+
+    categories = [CATEGORY_TRANSLATIONS[item['cate_choices']] for item in top_categories]
+
+    amount = [float(item['total_spending']) for item in top_categories]
+
+    income = total_income['total_income'] if total_income['total_income'] else 0
+    recent_costs=Cost.objects.filter(child_id=child_id).order_by('-date')[:10]
+
+    CA_pairs = zip(categories, amount)
+    periods = ['روز', 'هفته', 'ماه', 'همه']
+
 
     context = {
         'child': child,
         'parent': parent,
+        'categories': categories,
+        'amount': amount,
+        'income': income,
+        'recent_costs': recent_costs,
+        'CA_pairs': CA_pairs,
+        'periods': periods,
     }
 
-    return render(request, 'parent_dashboard.html', context)
+    return render(request, 'cashflow/parent_dashboard.html', context)
 
 
 
