@@ -5,7 +5,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Child Login</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/ag-charts-community/dist/ag-charts.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Lemon&family=Lexend+Exa:wght@100..900&family=Marhey:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Scheherazade+New:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -17,97 +39,308 @@
           extend: {
             colors: {
               clifford: "#da373d",
-              color3: "rgb(191 161 122 / 61%)",
+              Yellow: "#fca311",
+              Gray: "#353535",
             },
             fontFamily: {
               lemon: ["lemon"],
               error: ["error"],
               title: ["title"],
+              Material: ["Material Symbols Outlined"],
             },
           },
         },
       };
     </script>
+    <style>
+      input:-webkit-autofill {
+        /* background-color: red !important; 
+      color: #000 !important;           */
+        border-top: 1px solid white !important;
+        border-right: 1px solid white !important;
+        border-left: 1px solid white !important;
+
+        box-shadow: 0 0 0px 1000px white inset !important;
+      }
+      div,
+      button {
+        font-family: "El Messiri";
+      }
+
+      @layer base {
+        @font-face {
+          font-family: "El Messiri";
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url(../fonts/ElMessiri-VariableFont_wght.ttf) format("ttf");
+        }
+      }
+    </style>
   </head>
 
-  <body class="bg-yellow-100 flex justify-center">
-    <div class="flex px-[60px] items-center py-10 xl:pr-[180px]" dir="rtl">
+  <body class="bg-[#eeeeee] overflow-hidden">
+    <div dir="" class="flex">
+      <div class="flex-1">
+        <div
+          dir="rtl"
+          class="header h-[70px] z-40 bg-white px-5 sticky top-0 flex justify-between items-center text-[20px] font-[40px]"
+        >
+          <p class="text-[28px]">داشبورد</p>
+          <div>
+            <div class="icon flex items-center" dir="rtl">
+              <span
+                class="select-none dropdown z-10 relative cursor-pointer material-symbols-outlined mx-1 text-[30px] text-[#fca311]"
+              >
+                keyboard_arrow_down
+              </span>
+
+              <div class="relative hidden" id="dropdown-menu">
+                <ul
+                  class="overflow-hidden absolute rounded-[46px] z-10 top-[28px] left-[61px] pb-3 pt-[2.5rem] bg-[rgb(214_214_214)] transition-[height] w-[170px]"
+                >
+                  {% for child in children %}
+                  <li class="transition-[height] bg-[rgb(67_64_55_/68%)] my-2">
+                    <a
+                      href="{% url 'parent_dashboard' child.id %}"
+                      class="block py-2 px-6 text-white hover:bg-[#bbbb] text-center"
+                      style="cursor: pointer"
+                    >
+                      {{ child.username }}
+                    </a>
+                  </li>
+                  {% empty %}
+                  <li class="flex items-center justify-center text-[13px] mb-9">
+                    <p>هیچ فرزندی وجود ندارد</p>
+                  </li>
+                  {% endfor %}
+                </ul>
+                <div
+                  class="absolute top-[-5] left-[57px] rotate-[64deg] w-0 h-0 border-x-[50px] border-x-transparent border-b-[100px] border-b-[rgb(214_214_214)]"
+                ></div>
+              </div>
+
+              <span
+                class="material-symbols-outlined mx-1 text-[40px] text-[#fca311]"
+              >
+                account_child_invert
+              </span>
+              <!-- <span class="material-symbols-outlined mx-1 text-[40px] text-[#fca311]">
+            person
+          </span> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="blurDiv flex justify-center items-center h-[90%]">
+          <div
+            dir="rtl"
+            class="backdrop-blur-md bg-white border-[3px] border-black rounded-[30px] h-[420px] w-[600px] flex justify-center items-center"
+          >
+            <form
+              method="post"
+              class="block items-center"
+              id="registrationForm"
+            >
+              {% csrf_token %}
+              <div
+                class="flex items-center justify-center text-center mb-5 pb-5 mt-5"
+              >
+                <img
+                  src="{% static 'image/logo.png' %}"
+                  alt=""
+                  class="w-[168px]"
+                />
+              </div>
+              <div
+                class="flex items-center justify-center text-[20px] font-bold"
+              >
+                ثبت نام فرزند
+              </div>
+              <div class="flex mb-10 items-end">
+                <span
+                  class="material-symbols-outlined text-[#FFD100] text-[30px]"
+                >
+                  person
+                </span>
+                <div class="relative flex-1">
+                  <div>
+                    <input
+                      type="text"
+                      name="username"
+                      class="username w-[350px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                      placeholder="لطفا نام کاربری خود را وارد کنید"
+                    />
+                    <label
+                      for="username"
+                      class="absolute top-[-10px] start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500"
+                      >نام کاربری</label
+                    >
+                  </div>
+
+                  <span class="text-red-600 font-error text-[12px]">
+                    {% for error in form.password.errors %}{{ error }}{% endfor %}
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex items-end ju">
+                <span
+                  class="material-symbols-outlined text-[#FFD100] text-[30px]"
+                >
+                  lock
+                </span>
+                <div class="relative flex-1">
+                  <div
+                    class="flex justify-between items-center border-b-2 border-black"
+                  >
+                    <input
+                      type="password"
+                      name="password"
+                      class="text-black selection input peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                      placeholder=""
+                    />
+                    <label
+                      for="password"
+                      class="top-[-10px] absolute start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500"
+                      >رمز عبور</label
+                    >
+
+                    <i class="material-icons iconEye cursor-pointer select-none"
+                      >visibility_off</i
+                    >
+                  </div>
+                  <span class="text-red-600 font-error text-[12px]">
+                    {% for error in form.password.errors %}{{ error }}{% endfor %}
+                  </span>
+                </div>
+              </div>
+
+              {% if error %}
+              <p style="color: red; font-weight: bold">{{ error }}</p>
+              {% endif %}
+
+              <div class="flex items-center justify-center">
+                <button
+                  type="submit"
+                  class="bg-gradient-to-b from-yellow-500 to-orange-900 via-orange-600 rounded-2xl text-white font-bold py-[8px] px-12 my-8"
+                >
+                  ثبت نام
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div
         dir="rtl"
-        class="backdrop-blur-md bg-yellow-900/20 rounded-[30px] h-[500px] w-[600px] flex justify-center items-center"
+        class="w-[16%] bg-[#D6D6D6] h-[100vh] sticky bottom-0 top-0 right-0 pt-2"
       >
-        <form method="post" class="block items-center" id="registrationForm">
-          {% csrf_token %}
-          <div
-            class="flex items-center justify-center text-center mb-5 pb-5 font-title mt-5"
-          >
-            <img src="{% static 'image/logo.png' %}" alt="" class="w-[168px]" />
-          </div>
-          <div
-            class="flex items-center justify-center text-[20px] font-bold font-title"
-          >
-            ثبت نام فرزند
-          </div>
-          <div class="relative mb-10">
-            <input
-              type="text"
-              name="username"
-              class="username w-[350px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="لطفا نام کاربری خود را وارد کنید"
-            />
-            <label
-              for="username"
-              class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500"
-              >نام کاربری</label
+        <div class="logo flex justify-center items-center">
+          <img src="{% static 'image/logo.png' %}" class="w-[150px]" alt="" />
+        </div>
+        <div class="grid grid-cols-1 place-content-between gap-20 h-[85%]">
+          <ul class="pt-10">
+            <li
+              class="flex items-center mb-8 hover:bg-[#bbbbbb] group px-[35px] py-2"
             >
-            <span class="text-red-600 font-error text-[12px]">
-              {% for error in form.username.errors %}{{ error }}{% endfor %}
-            </span>
-          </div>
-
-          <div class="relative">
-            <div
-              class="flex justify-between items-center border-b-2 border-black"
+              <div class="ml-5">
+                <span
+                  class="material-symbols-outlined text-[35px] text-Yellow group-hover:text-white"
+                >
+                  home
+                </span>
+              </div>
+              {% if child %}
+              <a href="{% url 'parent_dashboard' child_id=child.id %}">
+                <p class="text-[15px]">کارتابل</p>
+              </a>
+              {% else %}
+              <a href="{% url 'parent_dashboard' child_id=children.0.id %}">
+                <p class="text-[15px]">کارتابل</p>
+              </a>
+              {% endif %}
+            </li>
+            {% comment %} <!-- <li class="flex items-center mb-8 hover:bg-[#bbbbbb] group  px-[35px] py-2">
+              <div class="ml-5">
+                <span class="material-symbols-outlined text-[35px] text-Yellow group-hover:text-white">
+                  query_stats
+                </span>
+              </div>
+              <a href="{% url 'details' child_id=child.id %}">
+                <p class="text-[15px] ">جزئیات گزارش</p>
+              </a>
+            </li> --> {% endcomment %}
+            <li
+              class="flex items-center mb-8 hover:bg-[#bbbbbb] group px-[35px] py-2"
             >
-              <input
-                type="password"
-                name="password"
-                class="text-black input password peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-                placeholder=""
-              />
-              <label
-                for="password"
-                class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent text-black origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-black dark:peer-focus:text-black peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-black dark:peer-[:not(:placeholder-shown)]:text-black"
-                >رمز عبور</label
-              >
+              <div class="ml-5">
+                <span
+                  class="material-symbols-outlined text-[35px] text-Yellow group-hover:text-white"
+                >
+                  add_notes
+                </span>
+              </div>
+              <a href="{% url 'child_signup' parent.id %}">
+                <p class="text-[15px]">افزودن فرزند</p>
+              </a>
+            </li>
+          </ul>
 
-              <i class="material-icons icon cursor-pointer">visibility</i>
-            </div>
-            <span class="text-red-600 font-error text-[12px]">
-              {% for error in form.password.errors %}{{ error }}{% endfor %}
-            </span>
-          </div>
-
-          {% if error %}
-          <p style="color: red; font-weight: bold">{{ error }}</p>
-          {% endif %}
-
-          <div class="flex items-center justify-center">
-            <button
-              type="submit"
-              class="bg-gradient-to-b from-yellow-500 to-orange-900 via-orange-600 rounded-3xl text-white font-bold py-[8px] px-12 my-8"
-            >
-              ثبت نام
-            </button>
-          </div>
-        </form>
-      </div>
-      <div
-        class="size-[500px] bg-white rounded-full relative md:translate-x-[90px] md:size-[550px] flex justify-center items-senter"
-      >
-        <img src="{% static 'image/1.png' %}" alt="" class="w-[500px]" />
+          <ul class="bottom-0">
+            <li class="flex items-center hover:bg-[#bbbb] group py-2 px-[35px]">
+              <div class="ml-5">
+                <span
+                  class="material-symbols-outlined text-[35px] text-Yellow group-hover:text-white"
+                >
+                  exit_to_app
+                </span>
+              </div>
+              <a href="{% url 'landing' %}">
+                <p class="text-[15px]">خروج</p>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </body>
+  <script>
+    const iconEye = document.querySelector(".iconEye");
+    const input = document.querySelector(".input");
+
+    iconEye.addEventListener("click", () => {
+      if (iconEye.textContent === "visibility") {
+        iconEye.textContent = "visibility_off";
+        input.type = "password";
+      } else {
+        iconEye.textContent = "visibility";
+        input.type = "text";
+      }
+    });
+  </script>
   <script src="{% static 'js/index.js' %}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dropdownmenue = document.getElementById("dropdown-menu");
+      const blurDiv = document.querySelector(".blurDiv");
+      const dropdown = document.querySelector(".dropdown");
+
+      dropdown.addEventListener("click", () => {
+        dropdownmenue.classList.toggle("hidden");
+        blurDiv.classList.toggle("blur-lg");
+      });
+
+      window.onclick = function (event) {
+        if (
+          !dropdown.contains(event.target) &&
+          !dropdownmenue.contains(event.target)
+        ) {
+          dropdownmenue.classList.add("hidden");
+          blurDiv.classList.remove("blur-lg");
+        }
+      };
+    });
+  </script>
 </html>

@@ -1,15 +1,16 @@
 from django.contrib import admin
-from  .models import Parent, Child, Cost
+from  .models import Parent, Child, Cost, Goals
 
 # Register your models here.
 
 
 class ParentAdmin(admin.ModelAdmin):
-    list_display=('id', 'username', 'password')
+    list_display=('id', 'username')
 
 
 class ChildAdmin(admin.ModelAdmin):
-    list_display=('id', 'username', 'password', 'parent')
+    list_display=('id', 'username', 'parent__username')
+    list_filter = ('parent', )
 
 
 class CostAdmin(admin.ModelAdmin):
@@ -18,6 +19,12 @@ class CostAdmin(admin.ModelAdmin):
     search_fields = ('cate_choices', 'description', 'child__username', 'id')  
     ordering = ('-date',) 
 
+class GoalAdmin(admin.ModelAdmin):
+    list_display=('id', 'goal', 'savings', 'goal_amount', 'child__username')
+
 admin.site.register(Parent, ParentAdmin)
 admin.site.register(Child, ChildAdmin)
 admin.site.register(Cost, CostAdmin)
+admin.site.register(Goals, GoalAdmin)
+
+

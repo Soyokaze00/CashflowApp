@@ -30,9 +30,12 @@ class Parent(models.Model):
         if not self.password.startswith('pbkdf2_'):
             self.password=make_password(self.password)
         super().save(*args, **kwargs)
+
+    def is_parent(self):
+        return True
    
     def __str__(self):
-        return f"{self.username} || {self.password}"
+        return f"{self.username} "
     
 #................................................................
 
@@ -46,8 +49,11 @@ class Child(models.Model):
             self.password=make_password(self.password)
         super().save(*args, **kwargs)
 
+    def is_parent(self):
+        return False
+
     def __str__(self):
-        return f"{self.username} || {self.password} || Created by Parent: {self.parent.username}"
+        return f"{self.username} || Created by Parent: {self.parent.username}"
         
 #.................................................................
 def get_persian_date():
@@ -65,11 +71,8 @@ class Cost(models.Model):
         ('income', 'درآمد')
     ]
     EXPENSE_CATEGORIES = [
-        ('food', 'خوراکی'),
-        ('needs', 'موارد ضروری'),
-        ('education', 'آموزش'),
-        ('health_cosmetics', 'مواد بهداشتی و آرایشی'),
-        ('clothes', 'لباس'),
+        ('needs', 'نیازها'),
+        ('wants', 'خواسته ها'), 
         ('else', 'سایر'),
         ('parent', 'والدین'),
         ('part_time_job', 'کار نیمه‌وقت'),
@@ -84,7 +87,7 @@ class Cost(models.Model):
     cate_choices=models.CharField(
         max_length=20,
         choices=EXPENSE_CATEGORIES,
-        default='food'
+        default='needs'
     )
 
     type = models.CharField(
@@ -95,6 +98,29 @@ class Cost(models.Model):
 
     def __str__(self):
         return f"Cost: {self.amount} || {self.get_type_display()} || for: {self.cate_choices} || on {self.date} || for: {self.child.username} ||"
+    
+    #........................................................................................
+
+
+
+#.................................................................................
+
+class Goals(models.Model):
+    goal = models.CharField(max_length=20)
+    goal_amount = models.DecimalField(max_digits=10, decimal_places=0)
+    savings = models.DecimalField(max_digits=10, decimal_places=0)
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, related_name='goals' )
+    IN_PROGRESS = 'جاری'
+    COMPLETED = 'کامل'
+    STATUS_CHOICES = [
+        (IN_PROGRESS, 'جاری'),
+        (COMPLETED, 'کامل'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=IN_PROGRESS)
+
+
+    def __str__(self):
+        return f" {self.goal} || {self.goal_amount} || {self.savings} || {self.status} || for child: {self.child.username}"
     
 
 

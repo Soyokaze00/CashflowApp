@@ -1,6 +1,6 @@
 from django import forms
 import jdatetime
-from .models import Parent, Child, Cost
+from .models import Parent, Child, Cost, Goals
 from django.core.exceptions import ValidationError
 #...................................................................................................
 
@@ -109,6 +109,7 @@ class costsForm(forms.ModelForm):
         initial=jdatetime.date.today().strftime('%Y-%m-%d'),
         widget=forms.TextInput(attrs={'dir': 'rtl', 'id': 'id_date'}),
         required=False
+        
     )
 
     def clean_date(self):
@@ -160,8 +161,35 @@ class costsForm(forms.ModelForm):
 
         #     return cleaned_data
 
-        
+
+
+#.....................................................................................................
+
+class goalsForm(forms.ModelForm):
+    class Meta:
+        model = Goals
+        fields = ['goal', 'goal_amount', 'savings']
+        error_messages = {
+            'goal': {'required': 'لطفا این فیلد را خالی نزارین😊'},
+            'goal_amount': {'required': 'لطفا این فیلد را خالی نزارین😊'},
+            'savings' : {'required': 'لطفا این فیلد را خالی نزارین😊'},
+        }
+
+        def clean_current_amount(self):
+            goal_amount = self.cleaned_data.get('goal_amount')
+            savings = self.cleaned_data.get('savings')
+            if goal_amount and savings and goal_amount > savings:
+                raise forms.ValidationError('مقدار پس‌انداز نمی‌تواند بیشتر از مبلغ هدف باشد!')
+            return goal_amount
     
+
+#.....................................................................................................
+
+class GoalUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Goals
+        fields = ['savings']
+        
 
 
 #......................................................................................................

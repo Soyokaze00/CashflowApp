@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+  
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script>
       tailwind.config = {
@@ -28,9 +31,34 @@
         },
       };
     </script>
+    <style>
+
+      input:-webkit-autofill {
+        /* background-color: red !important; 
+        color: #000 !important;           */
+        border-top: 1px solid #e2d4a0 !important;  
+        border-right: 1px solid #e2d4a0 !important; 
+        border-left: 1px solid #e2d4a0 !important;  
+       
+        box-shadow: 0 0 0px 1000px #e2d4a0 inset !important; 
+      }
+      div , button {
+            font-family: "El Messiri";
+          }
+      
+          @layer base {
+            @font-face {
+              font-family: "El Messiri";
+              font-style: normal;
+              font-weight: 400;
+              font-display: swap;
+              src: url(../fonts/ElMessiri-VariableFont_wght.ttf) format("ttf");
+            }
+          }
+        </style>
   </head>
 
-  <body class="bg-yellow-100 flex justify-center">
+  <body class="bg-yellow-100 flex justify-center overflow-hidden">
     <div class="flex px-[60px] items-center py-10 xl:pr-[180px]" dir="rtl">
       <div
         dir="rtl"
@@ -44,54 +72,43 @@
             <img src="{% static 'image/logo.png' %}" alt="" class="w-[168px]" />
           </div>
           <div
-            class="flex items-center justify-center text-[20px] font-bold font-title"
+            class="flex items-center justify-center text-[20px] font-bold "
           >
             ثبت نام
           </div>
           <div class="relative mb-10">
-            <input
-              type="text"
-              name="username"
-              class="username w-[300px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="لطفا نام کاربری خود را وارد کنید"
-            />
-            <label
-              for="username"
-              class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500"
-              >نام کاربری</label
-            >
-            <span class="text-red-600 font-error text-[12px]">
+            <input type="text" name="username"
+            class=" username w-[350px] peer py-4 px-0 block bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-black text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-gray-800 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+            placeholder="لطفا نام کاربری خود را وارد کنید" />
+          <label for="username"
+            class=" absolute top-[-10px] start-0  py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500">نام
+            کاربری</label>
+            <p class="text-red-600  text-[12px] mt-4">
               {% for error in form.username.errors %}{{ error }}{% endfor %}
-            </span>
+            </p>
           </div>
 
           <div class="relative">
             <div
               class="flex justify-between items-center border-b-2 border-black"
             >
-              <input
-                type="password"
-                name="password"
-                class="text-black input password peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-                placeholder=""
-              />
-              <label
-                for="password"
-                class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent text-black origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-black dark:peer-focus:text-black peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-black dark:peer-[:not(:placeholder-shown)]:text-black"
-                >رمز عبور</label
-              >
+            <input type="password" name="password"
+            class="text-black selection input  peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-transparent border-x-transparent text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-transparent focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:focus:border-b-transparent focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+            placeholder="" />
+          <label for="password"
+            class="top-[-10px] absolute  start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] text-black peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-neutral-500 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-500">رمز
+            عبور</label>
 
-              <i id="some-id" class="material-icons icon cursor-pointer"
-                >visibility</i
-              >
+            <i class="material-icons iconEye cursor-pointer select-none">visibility_off</i>
+
             </div>
-            <span class="text-red-600 font-error text-[12px]">
+            <p class="text-red-600  text-[12px] mt-4">
               {% for error in form.password.errors %}{{ error }}{% endfor %}
-            </span>
+            </p>
           </div>
 
           {% if error %}
-          <p style="color: red; font-weight: bold">{{ error }}</p>
+          <p class="text-red-600 font-error text-[12px] mt-4">{{ error }}</p>
           {% endif %}
 
           <div class="flex items-center justify-center">
@@ -112,14 +129,19 @@
       </div>
     </div>
   </body>
+  
   <script>
-    const togglePassword = document.querySelector("#togglePassword");
-    const passwordInput = document.querySelector("#passwordInput");
-    togglePassword.addEventListener("click", () => {
-      const type = passwordInput.type === "password" ? "text" : "password";
-      passwordInput.type = type;
-      togglePassword.textContent =
-        type === "password" ? "visibility" : "visibility_off";
+    const iconEye = document.querySelector(".iconEye");
+    const input = document.querySelector(".input");
+  
+    iconEye.addEventListener("click", () => {
+      if (iconEye.textContent === "visibility") {
+        iconEye.textContent = "visibility_off";
+        input.type = "password";
+      } else {
+        iconEye.textContent = "visibility";
+        input.type = "text";
+      }
     });
   </script>
   <script src="{% static 'js/index.js' %}"></script>

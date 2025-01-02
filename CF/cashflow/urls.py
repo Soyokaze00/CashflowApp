@@ -10,10 +10,10 @@ urlpatterns=[
     path("costs/<int:child_id>/", views.costs, name="costs"),
     path("child/dashboard/<int:child_id>/", views.child_dashboard, name="child_dashboard"),
     path("parent/dashboard/<int:child_id>/", views.parent_dashboard, name="parent_dashboard"),
-    # path('delete-cost/<int:cost_id>/', views.delete_cost, name='delete_cost'),
-    # path("costsV2/<int:child_id>/", views.costs, name="costsV2")
-    
-    # path("parent/dashboard/", views.parent_dashboard, name="parent_dashboard"),
+    path("goals/<int:child_id>/", views.goals, name="goals" ),
+    path("details/<int:child_id>/", views.details, name="details"),
+    path('education/<int:child_id>/', views.education, name='education'),
+
 ]
 
 

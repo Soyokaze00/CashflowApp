@@ -102,18 +102,15 @@ value1.addEventListener("input", () => {
   passError.textContent = ""; // پنهان کردن پیام خطا
 });
 
-const eye = true;
-const eyeHandlear = () => {};
+// const icon = document.querySelector(".icon");
+// const input = document.querySelector(".input");
 
-const icon = document.querySelector(".icon");
-const input = document.querySelector(".input");
-
-icon.addEventListener("click", () => {
-  if (icon.textContent === "visibility") {
-    icon.textContent = "visibility_off";
-    input.type = "text";
-  } else {
-    icon.textContent = "visibility";
-    input.type = "password";
-  }
-});
+// icon.addEventListener("click", () => {
+//   if (icon.textContent === "visibility") {
+//     icon.textContent = "visibility_off";
+//     input.type = "text";
+//   } else {
+//     icon.textContent = "visibility";
+//     input.type = "password";
+//   }
+// });
